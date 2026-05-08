@@ -16,24 +16,47 @@ struct CalendarHeaderView: View {
     let onOpenSettings: () -> Void
 
     var body: some View {
-        VStack(spacing: 8) {
-            HStack {
-                headerButton(symbol: "chevron.left", action: onPrevious)
-                Spacer()
-                Text(title)
-                    .font(.system(size: 16, weight: .semibold))
-                Spacer()
+        HStack(spacing: 10) {
+            monthSwitchGroup
+
+            Spacer(minLength: 8)
+
+            Text(title)
+                .font(.system(size: 16, weight: .semibold))
+                .lineLimit(1)
+
+            Spacer(minLength: 8)
+
+            HStack(spacing: 8) {
+                todayButton
                 headerButton(symbol: "gearshape", action: onOpenSettings)
             }
-
-            HStack {
-                Spacer()
-                Button("回到今天", action: onToday)
-                    .buttonStyle(.link)
-                    .disabled(!canReturnToToday)
-                headerButton(symbol: "chevron.right", action: onNext)
-            }
         }
+    }
+
+    private var monthSwitchGroup: some View {
+        HStack(spacing: 6) {
+            headerButton(symbol: "chevron.left", action: onPrevious)
+            headerButton(symbol: "chevron.right", action: onNext)
+        }
+    }
+
+    private var todayButton: some View {
+        Button(action: onToday) {
+            Text("今")
+                .font(.system(size: 13, weight: .bold))
+                .foregroundStyle(canReturnToToday ? Color.white : Color.secondary)
+                .padding(.horizontal, 13)
+                .frame(height: 32)
+                .background(
+                    Capsule(style: .continuous)
+                        .fill(canReturnToToday ? Color.red : Color.secondary.opacity(0.08))
+                )
+                .contentShape(Capsule())
+        }
+        .buttonStyle(.plain)
+        .disabled(!canReturnToToday)
+        .opacity(canReturnToToday ? 1 : 0.7)
     }
 
     private func headerButton(symbol: String, action: @escaping () -> Void) -> some View {

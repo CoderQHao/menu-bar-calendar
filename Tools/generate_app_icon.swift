@@ -4,75 +4,141 @@ import Foundation
 let outputDirectory = URL(fileURLWithPath: CommandLine.arguments[1], isDirectory: true)
 let sizes = [16, 32, 64, 128, 256, 512, 1024]
 
-func drawIcon(size: Int) -> NSImage {
+func drawIcon(size: Int) -> NSBitmapImageRep {
     let canvas = NSSize(width: size, height: size)
-    let image = NSImage(size: canvas)
+    guard
+        let bitmap = NSBitmapImageRep(
+            bitmapDataPlanes: nil,
+            pixelsWide: size,
+            pixelsHigh: size,
+            bitsPerSample: 8,
+            samplesPerPixel: 4,
+            hasAlpha: true,
+            isPlanar: false,
+            colorSpaceName: .deviceRGB,
+            bytesPerRow: 0,
+            bitsPerPixel: 0
+        ),
+        let graphicsContext = NSGraphicsContext(bitmapImageRep: bitmap)
+    else {
+        fatalError("Failed to create icon bitmap context")
+    }
 
-    image.lockFocus()
+    bitmap.size = canvas
+
+    NSGraphicsContext.saveGraphicsState()
+    NSGraphicsContext.current = graphicsContext
 
     let bounds = NSRect(origin: .zero, size: canvas)
-    let background = NSBezierPath(roundedRect: bounds, xRadius: CGFloat(size) * 0.22, yRadius: CGFloat(size) * 0.22)
-    NSColor(calibratedRed: 0.95, green: 0.28, blue: 0.25, alpha: 1).setFill()
-    background.fill()
+    let outerRadius = CGFloat(size) * 0.23
+    let background = NSBezierPath(roundedRect: bounds, xRadius: outerRadius, yRadius: outerRadius)
+    background.addClip()
 
-    let innerInset = CGFloat(size) * 0.12
-    let cardRect = bounds.insetBy(dx: innerInset, dy: innerInset)
-    let card = NSBezierPath(roundedRect: cardRect, xRadius: CGFloat(size) * 0.12, yRadius: CGFloat(size) * 0.12)
-    NSColor.white.setFill()
+    let gradient = NSGradient(
+        colors: [
+            NSColor(calibratedRed: 1.00, green: 0.47, blue: 0.34, alpha: 1),
+            NSColor(calibratedRed: 0.90, green: 0.17, blue: 0.20, alpha: 1)
+        ]
+    )!
+    gradient.draw(
+        in: background,
+        angle: -38
+    )
+
+    let glow = NSBezierPath(ovalIn: NSRect(
+        x: CGFloat(size) * 0.10,
+        y: CGFloat(size) * 0.56,
+        width: CGFloat(size) * 0.70,
+        height: CGFloat(size) * 0.42
+    ))
+    NSColor.white.withAlphaComponent(0.13).setFill()
+    glow.fill()
+
+    let cardRect = bounds.insetBy(dx: CGFloat(size) * 0.14, dy: CGFloat(size) * 0.14)
+    let card = NSBezierPath(
+        roundedRect: cardRect,
+        xRadius: CGFloat(size) * 0.14,
+        yRadius: CGFloat(size) * 0.14
+    )
+    NSColor(calibratedWhite: 1.0, alpha: 0.97).setFill()
     card.fill()
 
-    let topBarHeight = CGFloat(size) * 0.22
-    let topBarRect = NSRect(x: cardRect.minX, y: cardRect.maxY - topBarHeight, width: cardRect.width, height: topBarHeight)
+    let cardShadow = NSShadow()
+    cardShadow.shadowColor = NSColor.black.withAlphaComponent(0.10)
+    cardShadow.shadowBlurRadius = CGFloat(size) * 0.04
+    cardShadow.shadowOffset = NSSize(width: 0, height: -CGFloat(size) * 0.015)
+    NSGraphicsContext.saveGraphicsState()
+    cardShadow.set()
+    card.fill()
+    NSGraphicsContext.restoreGraphicsState()
+
+    let topBarHeight = CGFloat(size) * 0.20
+    let topBarRect = NSRect(
+        x: cardRect.minX,
+        y: cardRect.maxY - topBarHeight,
+        width: cardRect.width,
+        height: topBarHeight
+    )
     let topBar = NSBezierPath(
         roundedRect: topBarRect,
-        xRadius: CGFloat(size) * 0.12,
-        yRadius: CGFloat(size) * 0.12
+        xRadius: CGFloat(size) * 0.14,
+        yRadius: CGFloat(size) * 0.14
     )
-    NSColor(calibratedRed: 0.91, green: 0.15, blue: 0.18, alpha: 1).setFill()
+    NSColor(calibratedRed: 0.95, green: 0.31, blue: 0.27, alpha: 1).setFill()
     topBar.fill()
 
-    let ringWidth = CGFloat(size) * 0.05
-    let ringHeight = CGFloat(size) * 0.11
-    let ringY = topBarRect.maxY - ringHeight * 0.65
-    let leftRing = NSBezierPath(roundedRect: NSRect(x: cardRect.minX + CGFloat(size) * 0.11, y: ringY, width: ringWidth, height: ringHeight), xRadius: ringWidth / 2, yRadius: ringWidth / 2)
-    let rightRing = NSBezierPath(roundedRect: NSRect(x: cardRect.maxX - CGFloat(size) * 0.16, y: ringY, width: ringWidth, height: ringHeight), xRadius: ringWidth / 2, yRadius: ringWidth / 2)
-    NSColor(calibratedWhite: 0.90, alpha: 1).setFill()
-    leftRing.fill()
-    rightRing.fill()
+    let stubWidth = CGFloat(size) * 0.052
+    let stubHeight = CGFloat(size) * 0.11
+    let stubY = topBarRect.maxY - stubHeight * 0.62
+    let stubInset = CGFloat(size) * 0.13
+    let leftStub = NSBezierPath(
+        roundedRect: NSRect(x: cardRect.minX + stubInset, y: stubY, width: stubWidth, height: stubHeight),
+        xRadius: stubWidth / 2,
+        yRadius: stubWidth / 2
+    )
+    let rightStub = NSBezierPath(
+        roundedRect: NSRect(x: cardRect.maxX - stubInset - stubWidth, y: stubY, width: stubWidth, height: stubHeight),
+        xRadius: stubWidth / 2,
+        yRadius: stubWidth / 2
+    )
+    NSColor(calibratedWhite: 1.0, alpha: 0.85).setFill()
+    leftStub.fill()
+    rightStub.fill()
 
     let dayParagraph = NSMutableParagraphStyle()
     dayParagraph.alignment = .center
 
-    let dayString = NSAttributedString(
-        string: "8",
+    let titleString = NSAttributedString(
+        string: "今",
         attributes: [
-            .font: NSFont.systemFont(ofSize: CGFloat(size) * 0.33, weight: .bold),
+            .font: NSFont.systemFont(ofSize: CGFloat(size) * 0.42, weight: .heavy),
             .foregroundColor: NSColor(calibratedRed: 0.14, green: 0.16, blue: 0.22, alpha: 1),
             .paragraphStyle: dayParagraph
         ]
     )
-    dayString.draw(in: NSRect(x: cardRect.minX, y: cardRect.midY - CGFloat(size) * 0.08, width: cardRect.width, height: CGFloat(size) * 0.28))
+    titleString.draw(in: NSRect(
+        x: cardRect.minX,
+        y: cardRect.midY - CGFloat(size) * 0.16,
+        width: cardRect.width,
+        height: CGFloat(size) * 0.44
+    ))
 
-    let labelString = NSAttributedString(
-        string: "周五",
-        attributes: [
-            .font: NSFont.systemFont(ofSize: CGFloat(size) * 0.12, weight: .semibold),
-            .foregroundColor: NSColor(calibratedRed: 0.91, green: 0.15, blue: 0.18, alpha: 1),
-            .paragraphStyle: dayParagraph
-        ]
-    )
-    labelString.draw(in: NSRect(x: cardRect.minX, y: cardRect.minY + CGFloat(size) * 0.12, width: cardRect.width, height: CGFloat(size) * 0.12))
+    let accentDotSize = CGFloat(size) * 0.08
+    let accentDot = NSBezierPath(ovalIn: NSRect(
+        x: cardRect.midX - accentDotSize / 2,
+        y: cardRect.minY + CGFloat(size) * 0.12,
+        width: accentDotSize,
+        height: accentDotSize
+    ))
+    NSColor(calibratedRed: 0.95, green: 0.31, blue: 0.27, alpha: 1).setFill()
+    accentDot.fill()
 
-    image.unlockFocus()
-    return image
+    NSGraphicsContext.restoreGraphicsState()
+    return bitmap
 }
 
-func savePNG(_ image: NSImage, to url: URL) throws {
-    guard
-        let tiff = image.tiffRepresentation,
-        let rep = NSBitmapImageRep(data: tiff),
-        let pngData = rep.representation(using: .png, properties: [:])
-    else {
+func savePNG(_ bitmap: NSBitmapImageRep, to url: URL) throws {
+    guard let pngData = bitmap.representation(using: .png, properties: [:]) else {
         throw NSError(domain: "AppIconGeneration", code: 1)
     }
 
@@ -82,6 +148,6 @@ func savePNG(_ image: NSImage, to url: URL) throws {
 try FileManager.default.createDirectory(at: outputDirectory, withIntermediateDirectories: true)
 
 for size in sizes {
-    let image = drawIcon(size: size)
-    try savePNG(image, to: outputDirectory.appendingPathComponent("icon_\(size)x\(size).png"))
+    let bitmap = drawIcon(size: size)
+    try savePNG(bitmap, to: outputDirectory.appendingPathComponent("icon_\(size)x\(size).png"))
 }

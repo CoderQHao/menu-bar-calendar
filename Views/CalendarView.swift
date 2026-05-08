@@ -41,7 +41,6 @@ struct CalendarView: View {
 
                 WeekdayHeaderView(weekdayStart: viewModel.weekdayStart)
                 MonthGridView(days: viewModel.days, onSelect: viewModel.select(date:))
-                LegendView()
             }
         }
         .padding(14)
