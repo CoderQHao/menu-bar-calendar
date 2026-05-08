@@ -27,6 +27,7 @@ let package = Package(
                 "SupportingFiles",
                 "Tools",
                 ".DS_Store",
+                "CHANGELOG.md",
                 "README.md"
             ],
             sources: [
