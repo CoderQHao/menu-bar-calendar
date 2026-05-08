@@ -69,16 +69,6 @@
 		A00000000000000000000020 = {
 			isa = PBXGroup;
 			children = (
-				A00000000000000000000021 /* Sources */,
-				A00000000000000000000022 /* SupportingFiles */,
-				A00000000000000000000211 /* Assets.xcassets */,
-				A00000000000000000000023 /* Products */,
-			);
-			sourceTree = "<group>";
-		};
-		A00000000000000000000021 /* Sources */ = {
-			isa = PBXGroup;
-			children = (
 				A00000000000000000000030 /* App */,
 				A00000000000000000000031 /* Models */,
 				A00000000000000000000032 /* Services */,
@@ -86,9 +76,11 @@
 				A00000000000000000000034 /* Views */,
 				A00000000000000000000035 /* Support */,
 				A00000000000000000000036 /* Resources */,
+				A00000000000000000000022 /* SupportingFiles */,
+				A00000000000000000000211 /* Assets.xcassets */,
+				A00000000000000000000023 /* Products */,
 			);
-			path = Sources/MenuBarCalendar;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
 		};
 		A00000000000000000000022 /* SupportingFiles */ = {
 			isa = PBXGroup;
@@ -114,7 +106,7 @@
 				A00000000000000000000201 /* AppDelegate.swift */,
 			);
 			path = App;
-			sourceTree = "<group>";
+			sourceTree = SOURCE_ROOT;
 		};
 		A00000000000000000000031 /* Models */ = {
 			isa = PBXGroup;
@@ -123,7 +115,7 @@
 				A00000000000000000000203 /* HolidayModel.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
+			sourceTree = SOURCE_ROOT;
 		};
 		A00000000000000000000032 /* Services */ = {
 			isa = PBXGroup;
@@ -133,7 +125,7 @@
 				A00000000000000000000205 /* LunarCalendarService.swift */,
 			);
 			path = Services;
-			sourceTree = "<group>";
+			sourceTree = SOURCE_ROOT;
 		};
 		A00000000000000000000033 /* ViewModels */ = {
 			isa = PBXGroup;
@@ -141,7 +133,7 @@
 				A00000000000000000000207 /* CalendarViewModel.swift */,
 			);
 			path = ViewModels;
-			sourceTree = "<group>";
+			sourceTree = SOURCE_ROOT;
 		};
 		A00000000000000000000034 /* Views */ = {
 			isa = PBXGroup;
@@ -155,7 +147,7 @@
 				A0000000000000000000020A /* WeekdayHeaderView.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
+			sourceTree = SOURCE_ROOT;
 		};
 		A00000000000000000000035 /* Support */ = {
 			isa = PBXGroup;
@@ -165,7 +157,7 @@
 				A00000000000000000000212 /* WeekdayStart.swift */,
 			);
 			path = Support;
-			sourceTree = "<group>";
+			sourceTree = SOURCE_ROOT;
 		};
 		A00000000000000000000036 /* Resources */ = {
 			isa = PBXGroup;
@@ -173,7 +165,7 @@
 				A0000000000000000000020F /* 2026.json */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -281,12 +273,12 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
+				EXECUTABLE_NAME = MenuBarCalendar;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = SupportingFiles/Info.plist;
-				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 0.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.MenuBarCalendar;
-				EXECUTABLE_NAME = MenuBarCalendar;
 				PRODUCT_NAME = "今历";
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -306,12 +298,12 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
+				EXECUTABLE_NAME = MenuBarCalendar;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = SupportingFiles/Info.plist;
-				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 0.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.MenuBarCalendar;
-				EXECUTABLE_NAME = MenuBarCalendar;
 				PRODUCT_NAME = "今历";
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;

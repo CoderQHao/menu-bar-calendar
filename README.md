@@ -1,6 +1,6 @@
 # 今历
 
-[![Version](https://img.shields.io/github/v/release/CoderQHao/menu-bar-calendar)](https://github.com/CoderQHao/menu-bar-calendar/releases) ![SwiftUI](https://img.shields.io/badge/SwiftUI-EC662F?style=flat&logo=swift&logoColor=white) ![Swift](https://img.shields.io/badge/Swift-6.0%2B-FA7343?style=flat&logo=swift&logoColor=white) [![macOS](https://img.shields.io/badge/macOS-12.0%2B-green.svg)](https://github.com/CoderQHao/menu-bar-calendar/releases)
+[![Version](https://img.shields.io/github/v/release/CoderQHao/menu-bar-calendar)](https://github.com/CoderQHao/menu-bar-calendar/releases) ![SwiftUI](https://img.shields.io/badge/SwiftUI-EC662F?style=flat&logo=swift&logoColor=white) ![Swift](https://img.shields.io/badge/Swift-6.0%2B-FA7343?style=flat&logo=swift&logoColor=white) [![macOS](https://img.shields.io/badge/macOS-13.0%2B-green.svg)](https://github.com/CoderQHao/menu-bar-calendar/releases)
 
 一个面向中文用户的 macOS 菜单栏日历应用。
 
@@ -16,12 +16,11 @@
 - 支持农历、传统节日、节气显示
 - 支持法定节假日和调休状态标注
 - 支持跟随系统 / 浅色 / 深色模式切换
-- 支持 macOS 12 及以上
+- 支持 macOS 13 及以上
 
 ## 下载
 
 - 预构建版本可在 [GitHub Releases](https://github.com/CoderQHao/menu-bar-calendar/releases) 下载 `MenuBarCalendar.dmg`
-- [下载 MenuBarCalendar.dmg](https://github.com/CoderQHao/menu-bar-calendar/releases)
 - 如果你下载的是未签名版本，macOS 可能会提示来自未认证开发者，需要在系统设置中手动放行
 
 ## 安装

@@ -1,3 +1,10 @@
+//
+//  AppDelegate.swift
+//  MenuBarCalendar
+//
+//  Created by DongQing on 2026/5/8.
+//
+
 import AppKit
 import SwiftUI
 
@@ -39,9 +46,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
         popover.behavior = .transient
         popover.animates = true
         popover.delegate = self
-        popover.contentSize = NSSize(width: 320, height: 372)
+        popover.contentSize = NSSize(width: 360, height: 440)
         popover.contentViewController = NSHostingController(
-            rootView: CalendarView(viewModel: viewModel)
+            rootView: CalendarView(
+                viewModel: viewModel,
+                onQuit: { [weak self] in
+                    self?.quitApp(nil)
+                }
+            )
         )
     }
 

@@ -1,3 +1,10 @@
+//
+//  MenuBarCalendarApp.swift
+//  MenuBarCalendar
+//
+//  Created by DongQing on 2026/5/8.
+//
+
 import SwiftUI
 
 @main

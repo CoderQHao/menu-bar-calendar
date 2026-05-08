@@ -4,7 +4,7 @@ import PackageDescription
 let package = Package(
     name: "MenuBarCalendar",
     platforms: [
-        .macOS(.v12)
+        .macOS(.v13)
     ],
     products: [
         .executable(
@@ -15,6 +15,28 @@ let package = Package(
     targets: [
         .executableTarget(
             name: "MenuBarCalendar",
+            path: ".",
+            exclude: [
+                ".build",
+                ".DerivedData",
+                ".git",
+                "Assets.xcassets",
+                "MenuBarCalendar.xcodeproj",
+                "README-assets",
+                "Releases",
+                "SupportingFiles",
+                "Tools",
+                ".DS_Store",
+                "README.md"
+            ],
+            sources: [
+                "App",
+                "Models",
+                "Services",
+                "Support",
+                "ViewModels",
+                "Views"
+            ],
             resources: [
                 .process("Resources")
             ]

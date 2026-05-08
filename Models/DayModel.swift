@@ -1,3 +1,10 @@
+//
+//  DayModel.swift
+//  MenuBarCalendar
+//
+//  Created by DongQing on 2026/5/8.
+//
+
 import Foundation
 
 struct DayModel: Identifiable, Hashable {
