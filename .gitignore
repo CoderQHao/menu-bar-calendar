@@ -1,0 +1,22 @@
+# Project docs not meant for publication
+\# Mac 菜单栏日历 PRD.md
+Mac 菜单栏日历 技术拆解与开发任务.md
+
+# macOS noise
+.DS_Store
+
+# Swift Package / Xcode build output
+.build/
+DerivedData/
+**/.DerivedData/
+**/ModuleCache.noindex/
+**/*.dSYM
+**/build/
+
+# Xcode user data
+*.xcuserstate
+*.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+
+# Release artifacts generated locally
+Releases/
