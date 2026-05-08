@@ -20,12 +20,13 @@
 
 ## 下载
 
-- 预构建版本可在 [GitHub Releases](https://github.com/CoderQHao/menu-bar-calendar/releases) 下载 `0.0.1. MenuBarCalendar.dmg`
+- 预构建版本可在 [GitHub Releases](https://github.com/CoderQHao/menu-bar-calendar/releases) 下载 `MenuBarCalendar.dmg`
+- [下载 MenuBarCalendar.dmg](https://github.com/CoderQHao/menu-bar-calendar/releases)
 - 如果你下载的是未签名版本，macOS 可能会提示来自未认证开发者，需要在系统设置中手动放行
 
 ## 安装
 
-1. 下载 `0.0.1. MenuBarCalendar.dmg`
+1. 下载 `MenuBarCalendar.dmg`
 2. 打开 `dmg`
 3. 将 `今历.app` 拖入 `Applications`
 4. 首次打开时如果被系统阻止，到 `系统设置 > 隐私与安全性` 中允许打开
