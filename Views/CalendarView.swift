@@ -47,6 +47,6 @@ struct CalendarView: View {
         .padding(14)
         .frame(width: 320)
         .background(Color(nsColor: .windowBackgroundColor))
-        .preferredColorScheme(viewModel.appearanceMode.colorScheme)
+        .preferredColorScheme(viewModel.appearanceMode.resolvedColorScheme(using: NSApp.effectiveAppearance))
     }
 }
