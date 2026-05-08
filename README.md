@@ -1,6 +1,6 @@
 # 今历
 
-![Version](https://img.shields.io/badge/version-0.0.1-1f6feb) ![SwiftUI](https://img.shields.io/badge/SwiftUI-EC662F?style=flat&logo=swift&logoColor=white) ![Swift](https://img.shields.io/badge/Swift-5.0-FA7343?style=flat&logo=swift&logoColor=white) [![macOS](https://img.shields.io/badge/macOS-12.0%2B-green.svg)](https://github.com/CoderQHao/menu-bar-calendar/releases) [![GitHub Release](https://img.shields.io/github/v/release/CoderQHao/menu-bar-calendar)](https://github.com/CoderQHao/menu-bar-calendar/releases)
+[![Version](https://img.shields.io/github/v/release/CoderQHao/menu-bar-calendar)](https://github.com/CoderQHao/menu-bar-calendar/releases) ![SwiftUI](https://img.shields.io/badge/SwiftUI-EC662F?style=flat&logo=swift&logoColor=white) ![Swift](https://img.shields.io/badge/Swift-6.0%2B-FA7343?style=flat&logo=swift&logoColor=white) [![macOS](https://img.shields.io/badge/macOS-12.0%2B-green.svg)](https://github.com/CoderQHao/menu-bar-calendar/releases)
 
 一个面向中文用户的 macOS 菜单栏日历应用。
 
