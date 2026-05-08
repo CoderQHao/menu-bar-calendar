@@ -16,21 +16,21 @@ struct CalendarHeaderView: View {
     let onOpenSettings: () -> Void
 
     var body: some View {
-        HStack(spacing: 10) {
+        HStack(spacing: 8) {
             monthSwitchGroup
-
-            Spacer(minLength: 8)
+                .frame(width: 70, alignment: .leading)
 
             Text(title)
                 .font(.system(size: 16, weight: .semibold))
                 .lineLimit(1)
-
-            Spacer(minLength: 8)
+                .minimumScaleFactor(0.85)
+                .frame(maxWidth: .infinity, alignment: .center)
 
             HStack(spacing: 8) {
                 todayButton
                 headerButton(symbol: "gearshape", action: onOpenSettings)
             }
+            .frame(width: 78, alignment: .trailing)
         }
     }
 
