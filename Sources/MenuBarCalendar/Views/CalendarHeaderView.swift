@@ -31,14 +31,16 @@ struct CalendarHeaderView: View {
 
     private func headerButton(symbol: String, action: @escaping () -> Void) -> some View {
         Button(action: action) {
-            Image(systemName: symbol)
-                .font(.system(size: 12, weight: .semibold))
-                .frame(width: 28, height: 28)
+            ZStack {
+                RoundedRectangle(cornerRadius: 8, style: .continuous)
+                    .fill(Color.secondary.opacity(0.08))
+
+                Image(systemName: symbol)
+                    .font(.system(size: 12, weight: .semibold))
+            }
+            .frame(width: 32, height: 32)
+            .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
-        .background(
-            RoundedRectangle(cornerRadius: 8, style: .continuous)
-                .fill(Color.secondary.opacity(0.08))
-        )
     }
 }

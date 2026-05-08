@@ -30,7 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		A000000000000000000001F0 /* MenuBarCalendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MenuBarCalendar.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A000000000000000000001F0 /* 今历.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "今历.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A00000000000000000000200 /* MenuBarCalendarApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarCalendarApp.swift; sourceTree = "<group>"; };
 		A00000000000000000000201 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A00000000000000000000202 /* DayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayModel.swift; sourceTree = "<group>"; };
@@ -102,7 +102,7 @@
 		A00000000000000000000023 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A000000000000000000001F0 /* MenuBarCalendar.app */,
+				A000000000000000000001F0 /* 今历.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -192,7 +192,7 @@
 			);
 			name = MenuBarCalendar;
 			productName = MenuBarCalendar;
-			productReference = A000000000000000000001F0 /* MenuBarCalendar.app */;
+			productReference = A000000000000000000001F0 /* 今历.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -284,9 +284,10 @@
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = SupportingFiles/Info.plist;
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.MenuBarCalendar;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				EXECUTABLE_NAME = MenuBarCalendar;
+				PRODUCT_NAME = "今历";
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -308,9 +309,10 @@
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = SupportingFiles/Info.plist;
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.MenuBarCalendar;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				EXECUTABLE_NAME = MenuBarCalendar;
+				PRODUCT_NAME = "今历";
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
