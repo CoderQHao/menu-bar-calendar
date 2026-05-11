@@ -29,11 +29,13 @@ final class CalendarViewModel: ObservableObject {
     private let lunarService: LunarCalendarService
     private let dataService: CalendarDataService
     private var dayChangeTimer: Timer?
+    private var lastKnownDay: Date
 
     init() {
         var calendar = Calendar(identifier: .gregorian)
         calendar.firstWeekday = 1
         calendar.locale = Locale(identifier: "zh_CN")
+        let today = calendar.startOfDay(for: Date())
 
         let holidayService = HolidayService()
         let lunarService = LunarCalendarService()
@@ -56,11 +58,12 @@ final class CalendarViewModel: ObservableObject {
         self.statusDateFormat = StatusDateFormat(
             rawValue: UserDefaults.standard.string(forKey: Self.statusDateFormatKey) ?? ""
         ) ?? .chinese
-        self.displayedMonth = calendar.startOfDay(for: Date())
-        self.selectedDate = calendar.startOfDay(for: Date())
+        self.displayedMonth = today
+        self.selectedDate = today
         self.launchAtLoginEnabled = Self.isLaunchAtLoginEnabled
         self.canManageLaunchAtLogin = true
         self.launchAtLoginMessage = Self.launchAtLoginStatusMessage
+        self.lastKnownDay = today
     }
 
     var statusTitle: String {
@@ -81,8 +84,7 @@ final class CalendarViewModel: ObservableObject {
 
     func start() {
         preloadHolidayData()
-        refreshVisibleMonth()
-        updateStatusTitle()
+        refreshCurrentDate()
         applyAppearanceMode()
         refreshLaunchAtLoginState()
         scheduleNextDayRefresh()
@@ -159,6 +161,30 @@ final class CalendarViewModel: ObservableObject {
         }
     }
 
+    func refreshCurrentDate() {
+        let previousDay = lastKnownDay
+        let today = calendar.startOfDay(for: Date())
+        let dayChanged = !calendar.isDate(previousDay, inSameDayAs: today)
+
+        if dayChanged {
+            let selectedWasCurrentDay = selectedDate.map {
+                calendar.isDate($0, inSameDayAs: previousDay)
+            } ?? false
+
+            lastKnownDay = today
+
+            if selectedWasCurrentDay {
+                selectedDate = today
+            }
+
+            preloadHolidayData()
+            scheduleNextDayRefresh()
+        }
+
+        updateStatusTitle()
+        refreshVisibleMonth()
+    }
+
     private func preloadHolidayData() {
         let currentYear = calendar.component(.year, from: Date())
         holidayService.preload(years: [currentYear, currentYear + 1])
@@ -196,13 +222,7 @@ final class CalendarViewModel: ObservableObject {
 
     @objc
     private func handleDayChange() {
-        let today = calendar.startOfDay(for: Date())
-        if selectedDate.map({ calendar.isDate($0, inSameDayAs: today) }) == true {
-            selectedDate = today
-        }
-        updateStatusTitle()
-        refreshVisibleMonth()
-        scheduleNextDayRefresh()
+        refreshCurrentDate()
     }
 
     private static let monthFormatter: DateFormatter = {

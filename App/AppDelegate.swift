@@ -13,6 +13,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
     private let viewModel = CalendarViewModel()
     private let popover = NSPopover()
     private var statusItem: NSStatusItem?
+    private var notificationObservers: [NSObjectProtocol] = []
     private lazy var statusMenu: NSMenu = {
         let menu = NSMenu()
         menu.addItem(
@@ -39,6 +40,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
 
         configurePopover()
         configureStatusItem()
+        configureDateRefreshNotifications()
         viewModel.start()
     }
 
@@ -80,6 +82,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
     private func togglePopover(_ sender: AnyObject?) {
         guard let button = statusItem?.button else { return }
         guard let event = NSApp.currentEvent else { return }
+        viewModel.refreshCurrentDate()
 
         if event.type == .rightMouseUp {
             if popover.isShown {
@@ -103,9 +106,46 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
     @objc
     private func openCalendarFromMenu(_ sender: Any?) {
         guard let button = statusItem?.button else { return }
-        viewModel.refreshVisibleMonth()
+        viewModel.refreshCurrentDate()
         popover.show(relativeTo: button.bounds, of: button, preferredEdge: .minY)
         popover.contentViewController?.view.window?.makeKey()
+    }
+
+    private func configureDateRefreshNotifications() {
+        let notificationCenter = NotificationCenter.default
+        notificationObservers.append(
+            notificationCenter.addObserver(
+                forName: .NSCalendarDayChanged,
+                object: nil,
+                queue: .main
+            ) { [weak self] _ in
+                Task { @MainActor [weak self] in
+                    self?.viewModel.refreshCurrentDate()
+                }
+            }
+        )
+        notificationObservers.append(
+            notificationCenter.addObserver(
+                forName: .NSSystemClockDidChange,
+                object: nil,
+                queue: .main
+            ) { [weak self] _ in
+                Task { @MainActor [weak self] in
+                    self?.viewModel.refreshCurrentDate()
+                }
+            }
+        )
+        notificationObservers.append(
+            NSWorkspace.shared.notificationCenter.addObserver(
+                forName: NSWorkspace.didWakeNotification,
+                object: nil,
+                queue: .main
+            ) { [weak self] _ in
+                Task { @MainActor [weak self] in
+                    self?.viewModel.refreshCurrentDate()
+                }
+            }
+        )
     }
 
     @objc
