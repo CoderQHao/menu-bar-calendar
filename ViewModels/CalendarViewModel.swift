@@ -87,7 +87,6 @@ final class CalendarViewModel: ObservableObject {
         refreshCurrentDate()
         applyAppearanceMode()
         refreshLaunchAtLoginState()
-        scheduleNextDayRefresh()
     }
 
     func refreshVisibleMonth() {
@@ -178,11 +177,11 @@ final class CalendarViewModel: ObservableObject {
             }
 
             preloadHolidayData()
-            scheduleNextDayRefresh()
         }
 
         updateStatusTitle()
         refreshVisibleMonth()
+        scheduleNextDayRefresh()
     }
 
     private func preloadHolidayData() {
