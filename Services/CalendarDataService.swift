@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Builds the fixed month grid consumed by SwiftUI, combining solar, lunar, and holiday metadata.
 final class CalendarDataService {
     private let holidayService: HolidayService
     private let lunarService: LunarCalendarService
@@ -36,6 +37,7 @@ final class CalendarDataService {
         let visibleStart = monthFirstWeek.start
         let today = calendar.startOfDay(for: Date())
 
+        // Always render 6 weeks so the popover height is stable while switching months.
         return (0..<42).compactMap { offset in
             guard let date = calendar.date(byAdding: .day, value: offset, to: visibleStart) else {
                 return nil
@@ -57,6 +59,7 @@ final class CalendarDataService {
                 isInCurrentMonth: isInCurrentMonth,
                 isToday: isToday,
                 isSelected: isSelected,
+                // Official make-up workdays should not inherit the blue weekend styling.
                 isWeekend: isWeekend && holidayInfo?.isWorkdayOverride != true,
                 isHoliday: holidayInfo?.isHoliday == true,
                 isWorkdayOverride: holidayInfo?.isWorkdayOverride == true,

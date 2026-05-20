@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Produces the small secondary label under each day, preferring holidays over lunar labels.
 final class LunarCalendarService {
     private let lunarCalendar = Calendar(identifier: .chinese)
     private let gregorianCalendar = Calendar(identifier: .gregorian)
@@ -113,6 +114,7 @@ final class LunarCalendarService {
     }
 
     private func qingmingDay(for year: Int) -> Int {
+        // Qingming shifts between Apr 4-5; this common approximation is enough for display labels.
         let yearInCentury = year % 100
         return Int(Double(yearInCentury) * 0.2422 + 4.81) - Int(Double(yearInCentury) / 4)
     }
@@ -122,6 +124,7 @@ final class LunarCalendarService {
     }
 
     private func normalized(_ lunarMonth: Int) -> Int {
+        // Foundation represents leap lunar months with a negative month value.
         abs(lunarMonth)
     }
 

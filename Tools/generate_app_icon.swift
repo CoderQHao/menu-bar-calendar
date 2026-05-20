@@ -1,6 +1,7 @@
 import AppKit
 import Foundation
 
+// Generates all PNG sizes used by the AppIcon asset catalog.
 let outputDirectory = URL(fileURLWithPath: CommandLine.arguments[1], isDirectory: true)
 let sizes = [16, 32, 64, 128, 256, 512, 1024]
 

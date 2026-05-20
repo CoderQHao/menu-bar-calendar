@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Hides the resource-bundle difference between Swift Package builds and Xcode app builds.
 enum ResourceBundleProvider {
     static var bundle: Bundle {
         #if SWIFT_PACKAGE

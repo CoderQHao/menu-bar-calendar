@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Reads yearly holiday JSON and exposes fast day lookups for official rest/workday overrides.
 final class HolidayService {
     private let decoder = JSONDecoder()
     private let fileManager = FileManager.default
@@ -36,6 +37,7 @@ final class HolidayService {
     }
 
     private func loadYear(year: Int) -> [String: HolidayDayPayload]? {
+        // User-updated data in Application Support wins over the bundled fallback.
         if let cached = loadFromApplicationSupport(year: year) {
             return cached
         }
@@ -68,6 +70,7 @@ final class HolidayService {
             return nil
         }
 
+        // Convert the source array into a date-keyed dictionary because calendar cells query per day.
         return Dictionary(uniqueKeysWithValues: payload.days.map { day in
             let info = HolidayDayPayload(
                 name: day.name,
@@ -89,6 +92,7 @@ final class HolidayService {
         let formatter = DateFormatter()
         formatter.calendar = Calendar(identifier: .gregorian)
         formatter.locale = Locale(identifier: "zh_CN")
+        // Holiday JSON is keyed by China-local dates, not by the machine's current time zone.
         formatter.timeZone = TimeZone(secondsFromGMT: 8 * 3600)
         formatter.dateFormat = "yyyy-MM-dd"
         return formatter

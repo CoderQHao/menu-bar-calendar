@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// User preference for the first column in the calendar grid.
 enum WeekdayStart: Int, CaseIterable, Identifiable {
     case sunday = 1
     case monday = 2
@@ -32,6 +33,7 @@ enum WeekdayStart: Int, CaseIterable, Identifiable {
     }
 }
 
+/// Menu-bar date formats shown in Settings and used by the status item title.
 enum StatusDateFormat: String, CaseIterable, Identifiable {
     case chinese
     case slash

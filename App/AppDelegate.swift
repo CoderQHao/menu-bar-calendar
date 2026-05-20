@@ -9,10 +9,13 @@ import AppKit
 import SwiftUI
 
 @MainActor
+/// Owns the AppKit shell: menu bar item, popover hosting, and macOS lifecycle notifications.
 final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
     private let viewModel = CalendarViewModel()
     private let popover = NSPopover()
     private var statusItem: NSStatusItem?
+    // A lightweight fallback for missed sleep/wake or calendar-day notifications.
+    private var statusRefreshTimer: Timer?
     private var notificationObservers: [NSObjectProtocol] = []
     private lazy var statusMenu: NSMenu = {
         let menu = NSMenu()
@@ -42,6 +45,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
         configureStatusItem()
         configureDateRefreshNotifications()
         viewModel.start()
+        startStatusRefreshTimer()
     }
 
     private func configurePopover() {
@@ -70,19 +74,19 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
         button.sendAction(on: [.leftMouseUp, .rightMouseUp])
 
         viewModel.onStatusTitleChange = { [weak self] title in
-            self?.statusItem?.button?.title = title
+            self?.updateStatusItemTitle(title)
         }
         viewModel.onAppearanceModeChange = { mode in
             NSApp.appearance = mode.nsAppearance
         }
-        button.title = viewModel.statusTitle
+        updateStatusItemTitle()
     }
 
     @objc
     private func togglePopover(_ sender: AnyObject?) {
         guard let button = statusItem?.button else { return }
         guard let event = NSApp.currentEvent else { return }
-        viewModel.refreshCurrentDate()
+        refreshCurrentDateAndStatusItem()
 
         if event.type == .rightMouseUp {
             if popover.isShown {
@@ -106,12 +110,40 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
     @objc
     private func openCalendarFromMenu(_ sender: Any?) {
         guard let button = statusItem?.button else { return }
-        viewModel.refreshCurrentDate()
+        refreshCurrentDateAndStatusItem()
         popover.show(relativeTo: button.bounds, of: button, preferredEdge: .minY)
         popover.contentViewController?.view.window?.makeKey()
     }
 
+    private func refreshCurrentDateAndStatusItem() {
+        viewModel.refreshCurrentDate()
+        updateStatusItemTitle()
+    }
+
+    private func updateStatusItemTitle(_ title: String? = nil) {
+        guard let button = statusItem?.button else { return }
+
+        button.title = title ?? viewModel.statusTitle
+        // NSStatusItem can keep an old intrinsic width after sleep/wake, so force a relayout.
+        button.invalidateIntrinsicContentSize()
+        button.needsLayout = true
+        button.needsDisplay = true
+        statusItem?.length = NSStatusItem.variableLength
+    }
+
+    private func startStatusRefreshTimer() {
+        statusRefreshTimer?.invalidate()
+        statusRefreshTimer = Timer(timeInterval: 60, repeats: true) { [weak self] _ in
+            Task { @MainActor [weak self] in
+                self?.refreshCurrentDateAndStatusItem()
+            }
+        }
+        RunLoop.main.add(statusRefreshTimer!, forMode: .common)
+    }
+
     private func configureDateRefreshNotifications() {
+        // macOS does not guarantee a single notification for every "new visible day" path.
+        // Listen to calendar changes, clock edits, wake, screen wake, and unlock/session resume.
         let notificationCenter = NotificationCenter.default
         notificationObservers.append(
             notificationCenter.addObserver(
@@ -120,7 +152,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
                 queue: .main
             ) { [weak self] _ in
                 Task { @MainActor [weak self] in
-                    self?.viewModel.refreshCurrentDate()
+                    self?.refreshCurrentDateAndStatusItem()
                 }
             }
         )
@@ -131,7 +163,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
                 queue: .main
             ) { [weak self] _ in
                 Task { @MainActor [weak self] in
-                    self?.viewModel.refreshCurrentDate()
+                    self?.refreshCurrentDateAndStatusItem()
                 }
             }
         )
@@ -142,7 +174,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
                 queue: .main
             ) { [weak self] _ in
                 Task { @MainActor [weak self] in
-                    self?.viewModel.refreshCurrentDate()
+                    self?.refreshCurrentDateAndStatusItem()
                 }
             }
         )
@@ -153,7 +185,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
                 queue: .main
             ) { [weak self] _ in
                 Task { @MainActor [weak self] in
-                    self?.viewModel.refreshCurrentDate()
+                    self?.refreshCurrentDateAndStatusItem()
                 }
             }
         )
@@ -164,7 +196,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
                 queue: .main
             ) { [weak self] _ in
                 Task { @MainActor [weak self] in
-                    self?.viewModel.refreshCurrentDate()
+                    self?.refreshCurrentDateAndStatusItem()
                 }
             }
         )
@@ -180,6 +212,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
             return true
         }
 
+        // Menu bar apps are especially confusing when duplicated, because only one copy is visible.
         let currentProcessIdentifier = ProcessInfo.processInfo.processIdentifier
         let otherInstances = NSRunningApplication
             .runningApplications(withBundleIdentifier: bundleIdentifier)

@@ -1,5 +1,6 @@
 import AppKit
 
+// Renders the custom DMG installer background used by Tools/create_dmg.sh.
 let arguments = CommandLine.arguments
 guard arguments.count == 2 else {
     fputs("Usage: swift generate_dmg_background.swift <output-path>\n", stderr)

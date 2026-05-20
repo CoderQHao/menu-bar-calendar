@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Presentation-ready data for one calendar cell.
 struct DayModel: Identifiable, Hashable {
     let date: Date
     let solarDay: Int
@@ -20,6 +21,7 @@ struct DayModel: Identifiable, Hashable {
     let holidayName: String?
 
     var id: String {
+        // Stable across refreshes so SwiftUI does not animate a date cell as a different item.
         Self.idFormatter.string(from: date)
     }
 

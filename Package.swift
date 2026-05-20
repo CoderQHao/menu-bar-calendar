@@ -1,6 +1,7 @@
 // swift-tools-version: 6.0
 import PackageDescription
 
+// Keeps the same source tree buildable as a Swift Package for command-line validation.
 let package = Package(
     name: "MenuBarCalendar",
     platforms: [

@@ -10,6 +10,7 @@ import Combine
 import ServiceManagement
 
 @MainActor
+/// Central state holder for the popover calendar, menu-bar title, preferences, and daily refreshes.
 final class CalendarViewModel: ObservableObject {
     @Published private(set) var displayedMonth: Date
     @Published private(set) var selectedDate: Date?
@@ -29,6 +30,7 @@ final class CalendarViewModel: ObservableObject {
     private let lunarService: LunarCalendarService
     private let dataService: CalendarDataService
     private var dayChangeTimer: Timer?
+    // Tracks the last day we fully processed so date-dependent UI can roll forward once per day.
     private var lastKnownDay: Date
 
     init() {
@@ -160,6 +162,7 @@ final class CalendarViewModel: ObservableObject {
         }
     }
 
+    /// Recomputes all date-sensitive state and reschedules the next midnight refresh.
     func refreshCurrentDate() {
         let previousDay = lastKnownDay
         let today = calendar.startOfDay(for: Date())
@@ -207,6 +210,7 @@ final class CalendarViewModel: ObservableObject {
         dayChangeTimer?.invalidate()
 
         let now = Date()
+        // Fire slightly after midnight so Foundation date calculations have crossed into the new day.
         guard let nextMidnight = calendar.nextDate(
             after: now,
             matching: DateComponents(hour: 0, minute: 0, second: 1),
@@ -237,6 +241,7 @@ final class CalendarViewModel: ObservableObject {
     private static let statusDateFormatKey = "statusDateFormat"
 
     private static var isLaunchAtLoginEnabled: Bool {
+        // .requiresApproval means the helper has been requested and still needs user approval.
         switch SMAppService.mainApp.status {
         case .enabled, .requiresApproval:
             return true

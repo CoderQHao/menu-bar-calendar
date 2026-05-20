@@ -8,6 +8,7 @@
 import AppKit
 import SwiftUI
 
+/// App appearance preference, bridged to both AppKit and SwiftUI surfaces.
 enum AppearanceMode: String, CaseIterable, Identifiable {
     case system
     case light
@@ -49,6 +50,7 @@ enum AppearanceMode: String, CaseIterable, Identifiable {
     }
 
     func resolvedColorScheme(using appearance: NSAppearance?) -> ColorScheme? {
+        // SwiftUI popover content needs an explicit scheme even when AppKit follows the system.
         switch self {
         case .system:
             let bestMatch = appearance?.bestMatch(from: [.darkAqua, .aqua])
