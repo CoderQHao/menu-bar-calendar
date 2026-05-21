@@ -22,10 +22,13 @@ struct CalendarView: View {
                     launchAtLoginEnabled: viewModel.launchAtLoginEnabled,
                     canManageLaunchAtLogin: viewModel.canManageLaunchAtLogin,
                     launchAtLoginMessage: viewModel.launchAtLoginMessage,
+                    currentAppVersion: viewModel.currentAppVersion,
+                    updateState: viewModel.updateState,
                     onAppearanceModeChange: viewModel.setAppearanceMode,
                     onWeekdayStartChange: viewModel.setWeekdayStart,
                     onStatusDateFormatChange: viewModel.setStatusDateFormat,
                     onLaunchAtLoginChange: viewModel.setLaunchAtLogin,
+                    onUpdateButtonPress: viewModel.handleUpdateButtonPress,
                     onQuit: onQuit,
                     onClose: { isShowingSettings = false }
                 )
@@ -47,5 +50,30 @@ struct CalendarView: View {
         .frame(width: 320)
         .background(Color(nsColor: .windowBackgroundColor))
         .preferredColorScheme(viewModel.appearanceMode.resolvedColorScheme(using: NSApp.effectiveAppearance))
+        .alert(
+            viewModel.updatePrompt?.title ?? "",
+            isPresented: updatePromptBinding,
+            presenting: viewModel.updatePrompt
+        ) { _ in
+            Button("稍后", role: .cancel) {
+                viewModel.dismissUpdatePrompt()
+            }
+            Button("立即更新") {
+                viewModel.confirmUpdatePrompt()
+            }
+        } message: { prompt in
+            Text(prompt.message)
+        }
+    }
+
+    private var updatePromptBinding: Binding<Bool> {
+        Binding(
+            get: { viewModel.updatePrompt != nil },
+            set: { isPresented in
+                if !isPresented {
+                    viewModel.dismissUpdatePrompt()
+                }
+            }
+        )
     }
 }

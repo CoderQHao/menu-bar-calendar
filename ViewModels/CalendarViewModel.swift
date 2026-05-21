@@ -5,8 +5,9 @@
 //  Created by DongQing on 2026/5/8.
 //
 
-import Foundation
+import AppKit
 import Combine
+import Foundation
 import ServiceManagement
 
 @MainActor
@@ -21,6 +22,9 @@ final class CalendarViewModel: ObservableObject {
     @Published private(set) var launchAtLoginEnabled: Bool
     @Published private(set) var canManageLaunchAtLogin: Bool
     @Published private(set) var launchAtLoginMessage: String?
+    @Published private(set) var updateState: UpdateState
+    @Published private(set) var updatePrompt: UpdatePrompt?
+    let currentAppVersion: String
 
     var onStatusTitleChange: ((String) -> Void)?
     var onAppearanceModeChange: ((AppearanceMode) -> Void)?
@@ -29,7 +33,13 @@ final class CalendarViewModel: ObservableObject {
     private let holidayService: HolidayService
     private let lunarService: LunarCalendarService
     private let dataService: CalendarDataService
+    private let updateService: UpdateService
     private var dayChangeTimer: Timer?
+    private var pendingUpdate: UpdateInfo?
+    private var downloadedUpdateURL: URL?
+    private var lastAutomaticUpdateCheckDate: Date?
+    private var dismissedUpdatePromptVersion: String?
+    private var dismissedUpdatePromptDate: Date?
     // Tracks the last day we fully processed so date-dependent UI can roll forward once per day.
     private var lastKnownDay: Date
 
@@ -53,6 +63,7 @@ final class CalendarViewModel: ObservableObject {
             holidayService: holidayService,
             lunarService: lunarService
         )
+        self.updateService = UpdateService()
         self.appearanceMode = AppearanceMode(
             rawValue: UserDefaults.standard.string(forKey: Self.appearanceModeKey) ?? ""
         ) ?? .system
@@ -65,6 +76,18 @@ final class CalendarViewModel: ObservableObject {
         self.launchAtLoginEnabled = Self.isLaunchAtLoginEnabled
         self.canManageLaunchAtLogin = true
         self.launchAtLoginMessage = Self.launchAtLoginStatusMessage
+        self.updateState = .idle
+        self.updatePrompt = nil
+        self.currentAppVersion = Self.bundleShortVersion
+        self.lastAutomaticUpdateCheckDate = UserDefaults.standard.object(
+            forKey: Self.lastAutomaticUpdateCheckDateKey
+        ) as? Date
+        self.dismissedUpdatePromptVersion = UserDefaults.standard.string(
+            forKey: Self.dismissedUpdatePromptVersionKey
+        )
+        self.dismissedUpdatePromptDate = UserDefaults.standard.object(
+            forKey: Self.dismissedUpdatePromptDateKey
+        ) as? Date
         self.lastKnownDay = today
     }
 
@@ -162,6 +185,57 @@ final class CalendarViewModel: ObservableObject {
         }
     }
 
+    func handleUpdateButtonPress() {
+        switch updateState {
+        case .available:
+            downloadPendingUpdate()
+        case .readyToInstall(let version):
+            openDownloadedUpdate(version: version)
+        case .checking, .downloading:
+            return
+        default:
+            checkForUpdates()
+        }
+    }
+
+    func handleCalendarOpened() {
+        if showPromptForAvailableUpdateIfNeeded() {
+            return
+        }
+
+        checkForUpdatesOnCalendarOpen()
+    }
+
+    func dismissUpdatePrompt() {
+        if let version = updatePrompt?.version {
+            let now = Date()
+            dismissedUpdatePromptVersion = version
+            dismissedUpdatePromptDate = now
+            UserDefaults.standard.set(version, forKey: Self.dismissedUpdatePromptVersionKey)
+            UserDefaults.standard.set(now, forKey: Self.dismissedUpdatePromptDateKey)
+        }
+
+        updatePrompt = nil
+    }
+
+    func confirmUpdatePrompt() {
+        updatePrompt = nil
+        handleUpdateButtonPress()
+    }
+
+    func checkForUpdates() {
+        guard !updateState.isBusy else {
+            return
+        }
+
+        pendingUpdate = nil
+        downloadedUpdateURL = nil
+        updateState = .checking
+        recordUpdateCheckDate()
+
+        loadLatestUpdate(shouldPrompt: false, shouldSurfaceFailures: true)
+    }
+
     /// Recomputes all date-sensitive state and reschedules the next midnight refresh.
     func refreshCurrentDate() {
         let previousDay = lastKnownDay
@@ -198,6 +272,108 @@ final class CalendarViewModel: ObservableObject {
 
     private func applyAppearanceMode() {
         onAppearanceModeChange?(appearanceMode)
+    }
+
+    private func checkForUpdatesOnCalendarOpen() {
+        guard !updateState.isBusy,
+              shouldRunAutomaticUpdateCheck else {
+            return
+        }
+
+        recordUpdateCheckDate()
+        loadLatestUpdate(shouldPrompt: true, shouldSurfaceFailures: false)
+    }
+
+    private func loadLatestUpdate(shouldPrompt: Bool, shouldSurfaceFailures: Bool) {
+        Task { [currentAppVersion, updateService] in
+            do {
+                let update = try await updateService.latestUpdate(currentVersion: currentAppVersion)
+                if let update {
+                    pendingUpdate = update
+                    updateState = .available(version: update.version)
+                    if shouldPrompt {
+                        showPromptForAvailableUpdateIfNeeded()
+                    }
+                } else if shouldSurfaceFailures {
+                    updateState = .upToDate(currentVersion: currentAppVersion)
+                } else if case .checking = updateState {
+                    updateState = .idle
+                }
+            } catch {
+                if shouldSurfaceFailures {
+                    updateState = .failed(message: error.localizedDescription)
+                } else if case .checking = updateState {
+                    updateState = .idle
+                }
+            }
+        }
+    }
+
+    @discardableResult
+    private func showPromptForAvailableUpdateIfNeeded() -> Bool {
+        let availableVersion: String
+
+        switch updateState {
+        case .available(let version), .readyToInstall(let version):
+            availableVersion = version
+        default:
+            return false
+        }
+
+        guard !isUpdatePromptDismissedToday(version: availableVersion),
+              updatePrompt?.version != availableVersion else {
+            return false
+        }
+
+        updatePrompt = UpdatePrompt(version: availableVersion)
+        return true
+    }
+
+    private func isUpdatePromptDismissedToday(version: String) -> Bool {
+        guard dismissedUpdatePromptVersion == version,
+              let dismissedUpdatePromptDate else {
+            return false
+        }
+
+        return calendar.isDate(dismissedUpdatePromptDate, inSameDayAs: Date())
+    }
+
+    private func recordUpdateCheckDate() {
+        let now = Date()
+        lastAutomaticUpdateCheckDate = now
+        UserDefaults.standard.set(now, forKey: Self.lastAutomaticUpdateCheckDateKey)
+    }
+
+    private func downloadPendingUpdate() {
+        guard let pendingUpdate else {
+            checkForUpdates()
+            return
+        }
+
+        updateState = .downloading(version: pendingUpdate.version)
+
+        Task { [pendingUpdate, updateService] in
+            do {
+                let fileURL = try await updateService.download(pendingUpdate)
+                downloadedUpdateURL = fileURL
+                openDownloadedUpdate(version: pendingUpdate.version)
+            } catch {
+                updateState = .failed(message: error.localizedDescription)
+            }
+        }
+    }
+
+    private func openDownloadedUpdate(version: String) {
+        guard let downloadedUpdateURL else {
+            updateState = .failed(message: "安装包文件不存在，请重新检查更新。")
+            return
+        }
+
+        if NSWorkspace.shared.open(downloadedUpdateURL) {
+            updateState = .readyToInstall(version: version)
+        } else {
+            updateState = .failed(message: "安装包未能打开，请稍后重试。")
+        }
     }
 
     private func refreshLaunchAtLoginState() {
@@ -239,6 +415,28 @@ final class CalendarViewModel: ObservableObject {
     private static let appearanceModeKey = "appearanceMode"
     private static let weekdayStartKey = "weekdayStart"
     private static let statusDateFormatKey = "statusDateFormat"
+    private static let lastAutomaticUpdateCheckDateKey = "lastAutomaticUpdateCheckDate"
+    private static let dismissedUpdatePromptVersionKey = "dismissedUpdatePromptVersion"
+    private static let dismissedUpdatePromptDateKey = "dismissedUpdatePromptDate"
+
+    private static var bundleShortVersion: String {
+        Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "0.0.0"
+    }
+
+    private var shouldRunAutomaticUpdateCheck: Bool {
+        switch updateState {
+        case .available, .readyToInstall:
+            return false
+        default:
+            break
+        }
+
+        guard let lastAutomaticUpdateCheckDate else {
+            return true
+        }
+
+        return !calendar.isDate(lastAutomaticUpdateCheckDate, inSameDayAs: Date())
+    }
 
     private static var isLaunchAtLoginEnabled: Bool {
         // .requiresApproval means the helper has been requested and still needs user approval.

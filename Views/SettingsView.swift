@@ -15,93 +15,138 @@ struct SettingsView: View {
     let launchAtLoginEnabled: Bool
     let canManageLaunchAtLogin: Bool
     let launchAtLoginMessage: String?
+    let currentAppVersion: String
+    let updateState: UpdateState
     let onAppearanceModeChange: (AppearanceMode) -> Void
     let onWeekdayStartChange: (WeekdayStart) -> Void
     let onStatusDateFormatChange: (StatusDateFormat) -> Void
     let onLaunchAtLoginChange: (Bool) -> Void
+    let onUpdateButtonPress: () -> Void
     let onQuit: () -> Void
     let onClose: () -> Void
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            HStack {
-                Button(action: onClose) {
-                    HStack(spacing: 6) {
-                        Image(systemName: "chevron.left")
-                            .font(.system(size: 12, weight: .semibold))
-                        Text("返回")
-                            .font(.system(size: 13, weight: .medium))
+            header
+
+            ScrollView(showsIndicators: false) {
+                VStack(alignment: .leading, spacing: 16) {
+                    settingCard(title: "显示模式") {
+                        Picker("显示模式", selection: appearanceBinding) {
+                            ForEach(AppearanceMode.allCases) { mode in
+                                Text(mode.title).tag(mode)
+                            }
+                        }
+                        .pickerStyle(.segmented)
                     }
-                    .frame(minWidth: 64, minHeight: 32, alignment: .leading)
-                    .contentShape(Rectangle())
-                }
-                .buttonStyle(.plain)
 
-                Spacer()
-
-                Text("设置")
-                    .font(.system(size: 16, weight: .semibold))
-
-                Spacer()
-
-                Color.clear
-                    .frame(width: 44, height: 28)
-            }
-
-            settingCard(title: "显示模式") {
-                Picker("显示模式", selection: appearanceBinding) {
-                    ForEach(AppearanceMode.allCases) { mode in
-                        Text(mode.title).tag(mode)
+                    settingCard(title: "每周第一天") {
+                        Picker("每周第一天", selection: weekdayBinding) {
+                            ForEach(WeekdayStart.allCases) { mode in
+                                Text(mode.title).tag(mode)
+                            }
+                        }
+                        .pickerStyle(.segmented)
                     }
-                }
-                .pickerStyle(.segmented)
-            }
 
-            settingCard(title: "每周第一天") {
-                Picker("每周第一天", selection: weekdayBinding) {
-                    ForEach(WeekdayStart.allCases) { mode in
-                        Text(mode.title).tag(mode)
+                    settingCard(title: "菜单栏日期") {
+                        Picker("菜单栏日期", selection: statusDateFormatBinding) {
+                            ForEach(StatusDateFormat.allCases) { format in
+                                Text("\(format.title) · \(format.previewText(for: Date()))").tag(format)
+                            }
+                        }
+
+                        Text("当前预览：\(statusDateFormat.previewText(for: Date()))")
+                            .font(.system(size: 12))
+                            .foregroundStyle(.secondary)
                     }
-                }
-                .pickerStyle(.segmented)
-            }
 
-            settingCard(title: "菜单栏日期") {
-                Picker("菜单栏日期", selection: statusDateFormatBinding) {
-                    ForEach(StatusDateFormat.allCases) { format in
-                        Text("\(format.title) · \(format.previewText(for: Date()))").tag(format)
+                    settingCard(title: "开机启动") {
+                        Toggle("登录 macOS 时自动打开今历", isOn: launchAtLoginBinding)
+                            .toggleStyle(.switch)
+                            .disabled(!canManageLaunchAtLogin)
+
+                        if let launchAtLoginMessage {
+                            Text(launchAtLoginMessage)
+                                .font(.system(size: 12))
+                                .foregroundStyle(.secondary)
+                        }
                     }
+
+                    settingCard(title: "软件更新") {
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("当前版本：\(currentAppVersion)")
+                                .font(.system(size: 12))
+                                .foregroundStyle(.secondary)
+
+                            Button(action: onUpdateButtonPress) {
+                                HStack(spacing: 6) {
+                                    if updateState.isBusy {
+                                        ProgressView()
+                                            .controlSize(.small)
+                                            .scaleEffect(0.72)
+                                    } else {
+                                        Image(systemName: updateState.buttonSystemImage)
+                                            .font(.system(size: 12, weight: .semibold))
+                                    }
+
+                                    Text(updateState.buttonTitle)
+                                        .font(.system(size: 13, weight: .semibold))
+                                }
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 4)
+                            }
+                            .buttonStyle(.bordered)
+                            .disabled(updateState.isBusy)
+
+                            if let message = updateState.message {
+                                Text(message)
+                                    .font(.system(size: 12))
+                                    .foregroundStyle(.secondary)
+                                    .fixedSize(horizontal: false, vertical: true)
+                            }
+                        }
+                    }
+
+                    Button(action: onQuit) {
+                        Text("退出应用")
+                            .font(.system(size: 14, weight: .semibold))
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 10)
+                    }
+                    .buttonStyle(.bordered)
+                    .tint(.red)
                 }
-
-                Text("当前预览：\(statusDateFormat.previewText(for: Date()))")
-                    .font(.system(size: 12))
-                    .foregroundStyle(.secondary)
+                .padding(.bottom, 2)
             }
-
-            settingCard(title: "开机启动") {
-                Toggle("登录 macOS 时自动打开今历", isOn: launchAtLoginBinding)
-                    .toggleStyle(.switch)
-                    .disabled(!canManageLaunchAtLogin)
-
-                if let launchAtLoginMessage {
-                    Text(launchAtLoginMessage)
-                        .font(.system(size: 12))
-                        .foregroundStyle(.secondary)
-                }
-            }
-
-            Button(action: onQuit) {
-                Text("退出应用")
-                    .font(.system(size: 14, weight: .semibold))
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 10)
-            }
-            .buttonStyle(.bordered)
-            .tint(.red)
-
-            Spacer()
         }
         .padding(14)
+    }
+
+    private var header: some View {
+        HStack {
+            Button(action: onClose) {
+                HStack(spacing: 6) {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 12, weight: .semibold))
+                    Text("返回")
+                        .font(.system(size: 13, weight: .medium))
+                }
+                .frame(minWidth: 64, minHeight: 32, alignment: .leading)
+                .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+
+            Spacer()
+
+            Text("设置")
+                .font(.system(size: 16, weight: .semibold))
+
+            Spacer()
+
+            Color.clear
+                .frame(width: 44, height: 28)
+        }
     }
 
     private var appearanceBinding: Binding<AppearanceMode> {

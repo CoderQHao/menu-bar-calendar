@@ -104,6 +104,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
             viewModel.refreshVisibleMonth()
             popover.show(relativeTo: button.bounds, of: button, preferredEdge: .minY)
             popover.contentViewController?.view.window?.makeKey()
+            viewModel.handleCalendarOpened()
         }
     }
 
@@ -113,6 +114,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
         refreshCurrentDateAndStatusItem()
         popover.show(relativeTo: button.bounds, of: button, preferredEdge: .minY)
         popover.contentViewController?.view.window?.makeKey()
+        viewModel.handleCalendarOpened()
     }
 
     private func refreshCurrentDateAndStatusItem() {
