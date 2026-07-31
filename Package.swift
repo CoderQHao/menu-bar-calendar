@@ -22,6 +22,8 @@ let package = Package(
                 ".DerivedData",
                 ".git",
                 "Assets.xcassets",
+                "iOS",
+                "iOSWidget",
                 "MenuBarCalendar.xcodeproj",
                 "README-assets",
                 "Releases",

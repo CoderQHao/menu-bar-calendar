@@ -7,6 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		079FD18A888349DD67C2E168 /* CalendarDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000206 /* CalendarDataService.swift */; };
+		0FB10F055D3202C6965D2627 /* DayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000202 /* DayModel.swift */; };
+		1A1DF47899DDE87FF15DA57C /* SharedUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F8E18215D5EDE92AD4FAB2 /* SharedUserDefaults.swift */; };
+		21185E4DE621DDD317A8FF12 /* JinliWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1510489A483D39C639C07F15 /* JinliWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, CodeSignOnCopy, ); }; };
+		21A6CB1FF9BAEBCD81A9B844 /* WeekdayHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000020A /* WeekdayHeaderView.swift */; };
+		2903F1246A1975ACA27C849C /* MonthGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000020B /* MonthGridView.swift */; };
+		2D24FEB6C9F7F5A6D41D4509 /* MonthCalendarWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986E18EEF5B8B244EB8F5529 /* MonthCalendarWidget.swift */; };
+		34D46DFE4C0F4ADB3CFDCEA0 /* LunarCalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000205 /* LunarCalendarService.swift */; };
+		4C52DAD127EE6537AF4A7563 /* ResourceBundleProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000020E /* ResourceBundleProvider.swift */; };
+		59F1E88FFAE556452DDD38F6 /* SharedUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F8E18215D5EDE92AD4FAB2 /* SharedUserDefaults.swift */; };
+		656A306A5452B84350E91A69 /* WeekdayStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000212 /* WeekdayStart.swift */; };
+		73EFA61DC8BEF07FBE113919 /* IOSCalendarRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59C83D72D994D7723E58324 /* IOSCalendarRootView.swift */; };
+		8352951B96FB9A59F7C59B55 /* WeekdayStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000212 /* WeekdayStart.swift */; };
+		8586FC72AA8DA8B14A5383D6 /* IOSSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF11BFB5B5742C1F4692BE4 /* IOSSettingsView.swift */; };
+		88CBB6B1FDD0222A1B726ED4 /* ResourceBundleProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000020E /* ResourceBundleProvider.swift */; };
+		8CE2C296A79122DC96400B70 /* HolidayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000203 /* HolidayModel.swift */; };
+		9DD4A6DFFE9700C72E0D220F /* DayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000202 /* DayModel.swift */; };
+		9FB878979289C0D63716003C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000211 /* Assets.xcassets */; };
+		9FE1F7CCE1ED70B8E7E561F9 /* HolidayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000203 /* HolidayModel.swift */; };
 		A00000000000000000000100 /* MenuBarCalendarApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000200 /* MenuBarCalendarApp.swift */; };
 		A00000000000000000000101 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000201 /* AppDelegate.swift */; };
 		A00000000000000000000102 /* DayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000202 /* DayModel.swift */; };
@@ -28,9 +47,51 @@
 		A00000000000000000000112 /* WeekdayStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000212 /* WeekdayStart.swift */; };
 		A00000000000000000000113 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000213 /* SettingsView.swift */; };
 		A00000000000000000000114 /* UpdateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000216 /* UpdateService.swift */; };
+		A7EE9B21C84EBEBE1743E0C1 /* LegendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000020D /* LegendView.swift */; };
+		A906900CB775AB8D050A4EA0 /* IOSCalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A93A032387307E9B47935A11 /* IOSCalendarViewModel.swift */; };
+		B136A97E72DBA89545F73B36 /* CalendarDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000206 /* CalendarDataService.swift */; };
+		B6B76DD7D85DA51A4170F6B2 /* 2026.json in Resources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000020F /* 2026.json */; };
+		C1027ABC2BA795EB382AD476 /* LunarCalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000205 /* LunarCalendarService.swift */; };
+		C8F5FFC5553A7450DD41DAD3 /* iOSWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F007081A2FD182CFE3A68 /* iOSWidgetBundle.swift */; };
+		CF7739A9F66144B629FECD19 /* HolidayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000204 /* HolidayService.swift */; };
+		CFECE89D7F698F4760285892 /* HolidayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000204 /* HolidayService.swift */; };
+		F76183428A4573D1A3C54168 /* iOSCalendarApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FDB9A9D84EF52A0F0FCAB1 /* iOSCalendarApp.swift */; };
+		F8E9343B36D35B01D5435B29 /* DayCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000020C /* DayCellView.swift */; };
+		FAFD390531B83E75CA7CCB46 /* 2026.json in Resources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000020F /* 2026.json */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		E0F3446754D0E493106EAE04 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A00000000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E42AB0146FC4D2FB40D5E49B;
+			remoteInfo = JinliWidget;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		51F3D39B35F872C50EDB23C4 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				21185E4DE621DDD317A8FF12 /* JinliWidget.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		1510489A483D39C639C07F15 /* JinliWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = JinliWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		56D69566907583699A66ADB8 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		70FDB9A9D84EF52A0F0FCAB1 /* iOSCalendarApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = iOSCalendarApp.swift; sourceTree = "<group>"; };
+		8EF11BFB5B5742C1F4692BE4 /* IOSSettingsView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = IOSSettingsView.swift; sourceTree = "<group>"; };
+		8FB20B55D57FC7718C266858 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		986E18EEF5B8B244EB8F5529 /* MonthCalendarWidget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MonthCalendarWidget.swift; sourceTree = "<group>"; };
+		9C772FD1FBE50C30136AC351 /* JinliWidget.entitlements */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.entitlements; path = JinliWidget.entitlements; sourceTree = "<group>"; };
 		A000000000000000000001F0 /* 今历.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "今历.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A00000000000000000000200 /* MenuBarCalendarApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarCalendarApp.swift; sourceTree = "<group>"; };
 		A00000000000000000000201 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -55,6 +116,12 @@
 		A00000000000000000000214 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A00000000000000000000215 /* MenuBarCalendar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MenuBarCalendar.entitlements; sourceTree = "<group>"; };
 		A00000000000000000000216 /* UpdateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateService.swift; sourceTree = "<group>"; };
+		A93A032387307E9B47935A11 /* IOSCalendarViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = IOSCalendarViewModel.swift; sourceTree = "<group>"; };
+		B8D343B9FCAC3BA303307A23 /* Jinli-iOS.entitlements */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.entitlements; path = "Jinli-iOS.entitlements"; sourceTree = "<group>"; };
+		DF1F007081A2FD182CFE3A68 /* iOSWidgetBundle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = iOSWidgetBundle.swift; sourceTree = "<group>"; };
+		E2F8E18215D5EDE92AD4FAB2 /* SharedUserDefaults.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SharedUserDefaults.swift; sourceTree = "<group>"; };
+		E59C83D72D994D7723E58324 /* IOSCalendarRootView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = IOSCalendarRootView.swift; sourceTree = "<group>"; };
+		F361516BA0E3C457B07CD4B4 /* Jinli.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jinli.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,9 +132,71 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EB82008E765B54542AA0E2DF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA5E5EBA5AF25FA64F0ED2A0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		14A8209191286509D7FFDB52 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				8FB20B55D57FC7718C266858 /* Info.plist */,
+				B8D343B9FCAC3BA303307A23 /* Jinli-iOS.entitlements */,
+			);
+			name = SupportingFiles;
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		21E78AF2BE0D80CE2639F74B /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				A93A032387307E9B47935A11 /* IOSCalendarViewModel.swift */,
+			);
+			name = ViewModels;
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		50FE7B995BCB264D9CA582C1 /* iOSWidget */ = {
+			isa = PBXGroup;
+			children = (
+				DF1F007081A2FD182CFE3A68 /* iOSWidgetBundle.swift */,
+				986E18EEF5B8B244EB8F5529 /* MonthCalendarWidget.swift */,
+				56D69566907583699A66ADB8 /* Info.plist */,
+				9C772FD1FBE50C30136AC351 /* JinliWidget.entitlements */,
+			);
+			name = iOSWidget;
+			path = iOSWidget;
+			sourceTree = SOURCE_ROOT;
+		};
+		8A5F1B672CD36CD94D5E2591 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		98375CF107817811FA0099E8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E59C83D72D994D7723E58324 /* IOSCalendarRootView.swift */,
+				8EF11BFB5B5742C1F4692BE4 /* IOSSettingsView.swift */,
+			);
+			name = Views;
+			path = Views;
+			sourceTree = "<group>";
+		};
 		A00000000000000000000020 = {
 			isa = PBXGroup;
 			children = (
@@ -81,6 +210,9 @@
 				A00000000000000000000022 /* SupportingFiles */,
 				A00000000000000000000211 /* Assets.xcassets */,
 				A00000000000000000000023 /* Products */,
+				DAE2404764CE7DDFF9634D0F /* Frameworks */,
+				AB415ADAB2D53F9422B48A03 /* iOS */,
+				50FE7B995BCB264D9CA582C1 /* iOSWidget */,
 			);
 			sourceTree = "<group>";
 		};
@@ -97,6 +229,8 @@
 			isa = PBXGroup;
 			children = (
 				A000000000000000000001F0 /* 今历.app */,
+				F361516BA0E3C457B07CD4B4 /* Jinli.app */,
+				1510489A483D39C639C07F15 /* JinliWidget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -158,6 +292,7 @@
 				A00000000000000000000210 /* AppearanceMode.swift */,
 				A0000000000000000000020E /* ResourceBundleProvider.swift */,
 				A00000000000000000000212 /* WeekdayStart.swift */,
+				E2F8E18215D5EDE92AD4FAB2 /* SharedUserDefaults.swift */,
 			);
 			path = Support;
 			sourceTree = SOURCE_ROOT;
@@ -170,9 +305,48 @@
 			path = Resources;
 			sourceTree = SOURCE_ROOT;
 		};
+		AB415ADAB2D53F9422B48A03 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				21E78AF2BE0D80CE2639F74B /* ViewModels */,
+				98375CF107817811FA0099E8 /* Views */,
+				14A8209191286509D7FFDB52 /* SupportingFiles */,
+				70FDB9A9D84EF52A0F0FCAB1 /* iOSCalendarApp.swift */,
+			);
+			name = iOS;
+			path = iOS;
+			sourceTree = SOURCE_ROOT;
+		};
+		DAE2404764CE7DDFF9634D0F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8A5F1B672CD36CD94D5E2591 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		637BB8634E94D4514D57EC66 /* Jinli iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EBCF3F13B96F53B0D550C683 /* Build configuration list for PBXNativeTarget "Jinli iOS" */;
+			buildPhases = (
+				153BBA1A9EE3869EE12F69FE /* Sources */,
+				FA5E5EBA5AF25FA64F0ED2A0 /* Frameworks */,
+				5F8B48AD59A0353927AE9861 /* Resources */,
+				51F3D39B35F872C50EDB23C4 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7BD3BC5856B4AB216E1340D5 /* PBXTargetDependency */,
+			);
+			name = "Jinli iOS";
+			productName = "Jinli iOS";
+			productReference = F361516BA0E3C457B07CD4B4 /* Jinli.app */;
+			productType = "com.apple.product-type.application";
+		};
 		A00000000000000000000002 /* MenuBarCalendar */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A00000000000000000000052 /* Build configuration list for PBXNativeTarget "MenuBarCalendar" */;
@@ -189,6 +363,23 @@
 			productName = MenuBarCalendar;
 			productReference = A000000000000000000001F0 /* 今历.app */;
 			productType = "com.apple.product-type.application";
+		};
+		E42AB0146FC4D2FB40D5E49B /* JinliWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 617C9F376560FE7A66FF2679 /* Build configuration list for PBXNativeTarget "JinliWidget" */;
+			buildPhases = (
+				503049C292E0505E31DEE0E3 /* Sources */,
+				EB82008E765B54542AA0E2DF /* Frameworks */,
+				2CE8E1CF0B9640C9FF426854 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JinliWidget;
+			productName = JinliWidget;
+			productReference = 1510489A483D39C639C07F15 /* JinliWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -220,11 +411,30 @@
 			projectRoot = "";
 			targets = (
 				A00000000000000000000002 /* MenuBarCalendar */,
+				637BB8634E94D4514D57EC66 /* Jinli iOS */,
+				E42AB0146FC4D2FB40D5E49B /* JinliWidget */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		2CE8E1CF0B9640C9FF426854 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B6B76DD7D85DA51A4170F6B2 /* 2026.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5F8B48AD59A0353927AE9861 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9FB878979289C0D63716003C /* Assets.xcassets in Resources */,
+				FAFD390531B83E75CA7CCB46 /* 2026.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A00000000000000000000011 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -237,6 +447,46 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		153BBA1A9EE3869EE12F69FE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F76183428A4573D1A3C54168 /* iOSCalendarApp.swift in Sources */,
+				A906900CB775AB8D050A4EA0 /* IOSCalendarViewModel.swift in Sources */,
+				73EFA61DC8BEF07FBE113919 /* IOSCalendarRootView.swift in Sources */,
+				8586FC72AA8DA8B14A5383D6 /* IOSSettingsView.swift in Sources */,
+				9DD4A6DFFE9700C72E0D220F /* DayModel.swift in Sources */,
+				9FE1F7CCE1ED70B8E7E561F9 /* HolidayModel.swift in Sources */,
+				B136A97E72DBA89545F73B36 /* CalendarDataService.swift in Sources */,
+				CF7739A9F66144B629FECD19 /* HolidayService.swift in Sources */,
+				C1027ABC2BA795EB382AD476 /* LunarCalendarService.swift in Sources */,
+				88CBB6B1FDD0222A1B726ED4 /* ResourceBundleProvider.swift in Sources */,
+				656A306A5452B84350E91A69 /* WeekdayStart.swift in Sources */,
+				F8E9343B36D35B01D5435B29 /* DayCellView.swift in Sources */,
+				2903F1246A1975ACA27C849C /* MonthGridView.swift in Sources */,
+				21A6CB1FF9BAEBCD81A9B844 /* WeekdayHeaderView.swift in Sources */,
+				A7EE9B21C84EBEBE1743E0C1 /* LegendView.swift in Sources */,
+				59F1E88FFAE556452DDD38F6 /* SharedUserDefaults.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		503049C292E0505E31DEE0E3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C8F5FFC5553A7450DD41DAD3 /* iOSWidgetBundle.swift in Sources */,
+				2D24FEB6C9F7F5A6D41D4509 /* MonthCalendarWidget.swift in Sources */,
+				0FB10F055D3202C6965D2627 /* DayModel.swift in Sources */,
+				8CE2C296A79122DC96400B70 /* HolidayModel.swift in Sources */,
+				079FD18A888349DD67C2E168 /* CalendarDataService.swift in Sources */,
+				CFECE89D7F698F4760285892 /* HolidayService.swift in Sources */,
+				34D46DFE4C0F4ADB3CFDCEA0 /* LunarCalendarService.swift in Sources */,
+				4C52DAD127EE6537AF4A7563 /* ResourceBundleProvider.swift in Sources */,
+				8352951B96FB9A59F7C59B55 /* WeekdayStart.swift in Sources */,
+				1A1DF47899DDE87FF15DA57C /* SharedUserDefaults.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A00000000000000000000010 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -265,7 +515,114 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		7BD3BC5856B4AB216E1340D5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = JinliWidget;
+			target = E42AB0146FC4D2FB40D5E49B /* JinliWidget */;
+			targetProxy = E0F3446754D0E493106EAE04 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		2078868A055A5945D0F2A827 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = iOSWidget/JinliWidget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 5;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = iOSWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 0.0.5;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.MenuBarCalendar.Widget;
+				PRODUCT_MODULE_NAME = JinliWidget;
+				PRODUCT_NAME = JinliWidget;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8680DB5A981FFC999F382A72 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = "iOS/SupportingFiles/Jinli-iOS.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 5;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = iOS/SupportingFiles/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.0.5;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.MenuBarCalendar;
+				PRODUCT_MODULE_NAME = JinliiOS;
+				PRODUCT_NAME = Jinli;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8F5417A2412995A65CC097AF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = iOSWidget/JinliWidget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 5;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = iOSWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 0.0.5;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.MenuBarCalendar.Widget;
+				PRODUCT_MODULE_NAME = JinliWidget;
+				PRODUCT_NAME = JinliWidget;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
 		A00000000000000000000060 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -342,9 +699,50 @@
 			};
 			name = Release;
 		};
+		CA532AF672B139A86280A091 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = "iOS/SupportingFiles/Jinli-iOS.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 5;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = iOS/SupportingFiles/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.0.5;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.MenuBarCalendar;
+				PRODUCT_MODULE_NAME = JinliiOS;
+				PRODUCT_NAME = Jinli;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		617C9F376560FE7A66FF2679 /* Build configuration list for PBXNativeTarget "JinliWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2078868A055A5945D0F2A827 /* Release */,
+				8F5417A2412995A65CC097AF /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A00000000000000000000051 /* Build configuration list for PBXProject "MenuBarCalendar" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -359,6 +757,15 @@
 			buildConfigurations = (
 				A00000000000000000000060 /* Debug */,
 				A00000000000000000000061 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EBCF3F13B96F53B0D550C683 /* Build configuration list for PBXNativeTarget "Jinli iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8680DB5A981FFC999F382A72 /* Release */,
+				CA532AF672B139A86280A091 /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
