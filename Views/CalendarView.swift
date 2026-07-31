@@ -48,7 +48,7 @@ struct CalendarView: View {
         }
         .padding(14)
         .frame(width: 320)
-        .background(Color(nsColor: .windowBackgroundColor))
+        .background(Color.clear)
         .preferredColorScheme(viewModel.appearanceMode.resolvedColorScheme(using: NSApp.effectiveAppearance))
         .alert(
             viewModel.updatePrompt?.title ?? "",

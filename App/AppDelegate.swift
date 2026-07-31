@@ -53,14 +53,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
         popover.animates = true
         popover.delegate = self
         popover.contentSize = NSSize(width: 360, height: 440)
-        popover.contentViewController = NSHostingController(
-            rootView: CalendarView(
-                viewModel: viewModel,
-                onQuit: { [weak self] in
-                    self?.quitApp(nil)
-                }
-            )
+        let hostingController = NSHostingController(
+            rootView: CalendarView(viewModel: viewModel) { [weak self] in
+                self?.quitApp(nil)
+            }
         )
+        hostingController.view.wantsLayer = true
+        hostingController.view.layer?.backgroundColor = NSColor.clear.cgColor
+        popover.contentViewController = hostingController
     }
 
     private func configureStatusItem() {
