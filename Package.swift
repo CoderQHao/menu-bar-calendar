@@ -26,6 +26,7 @@ let package = Package(
                 "README-assets",
                 "Releases",
                 "SupportingFiles",
+                "Tests",
                 "Tools",
                 ".DS_Store",
                 "CHANGELOG.md",
@@ -42,6 +43,10 @@ let package = Package(
             resources: [
                 .process("Resources")
             ]
+        ),
+        .testTarget(
+            name: "MenuBarCalendarTests",
+            dependencies: ["MenuBarCalendar"]
         )
     ]
 )

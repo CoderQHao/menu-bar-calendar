@@ -43,11 +43,11 @@ final class CalendarViewModel: ObservableObject {
     // Tracks the last day we fully processed so date-dependent UI can roll forward once per day.
     private var lastKnownDay: Date
 
-    init() {
+    init(now: Date = Date()) {
         var calendar = Calendar(identifier: .gregorian)
         calendar.firstWeekday = 1
         calendar.locale = Locale(identifier: "zh_CN")
-        let today = calendar.startOfDay(for: Date())
+        let today = calendar.startOfDay(for: now)
 
         let holidayService = HolidayService()
         let lunarService = LunarCalendarService()
@@ -237,17 +237,24 @@ final class CalendarViewModel: ObservableObject {
     }
 
     /// Recomputes all date-sensitive state and reschedules the next midnight refresh.
-    func refreshCurrentDate() {
+    func refreshCurrentDate(now: Date = Date()) {
         let previousDay = lastKnownDay
-        let today = calendar.startOfDay(for: Date())
+        let today = calendar.startOfDay(for: now)
         let dayChanged = !calendar.isDate(previousDay, inSameDayAs: today)
 
         if dayChanged {
+            let shouldFollowCurrentMonth = calendar.isDate(
+                displayedMonth, equalTo: previousDay, toGranularity: .month
+            ) && !calendar.isDate(previousDay, equalTo: today, toGranularity: .month)
             let selectedWasCurrentDay = selectedDate.map {
                 calendar.isDate($0, inSameDayAs: previousDay)
             } ?? false
 
             lastKnownDay = today
+
+            if shouldFollowCurrentMonth {
+                displayedMonth = today
+            }
 
             if selectedWasCurrentDay {
                 selectedDate = today
