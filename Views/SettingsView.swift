@@ -38,6 +38,8 @@ struct SettingsView: View {
                             }
                         }
                         .pickerStyle(.segmented)
+                        .labelsHidden()
+                        .frame(maxWidth: .infinity)
                     }
 
                     settingCard(title: "每周第一天") {
@@ -47,6 +49,8 @@ struct SettingsView: View {
                             }
                         }
                         .pickerStyle(.segmented)
+                        .labelsHidden()
+                        .frame(maxWidth: .infinity)
                     }
 
                     settingCard(title: "菜单栏日期") {
@@ -55,6 +59,8 @@ struct SettingsView: View {
                                 Text("\(format.title) · \(format.previewText(for: Date()))").tag(format)
                             }
                         }
+                        .labelsHidden()
+                        .frame(maxWidth: .infinity)
 
                         Text("当前预览：\(statusDateFormat.previewText(for: Date()))")
                             .font(.system(size: 12))
