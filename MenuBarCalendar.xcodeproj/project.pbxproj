@@ -28,6 +28,7 @@
 		A00000000000000000000112 /* WeekdayStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000212 /* WeekdayStart.swift */; };
 		A00000000000000000000113 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000213 /* SettingsView.swift */; };
 		A00000000000000000000114 /* UpdateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000216 /* UpdateService.swift */; };
+		A00000000000000000000115 /* 2027.json in Resources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000217 /* 2027.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +56,7 @@
 		A00000000000000000000214 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A00000000000000000000215 /* MenuBarCalendar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MenuBarCalendar.entitlements; sourceTree = "<group>"; };
 		A00000000000000000000216 /* UpdateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateService.swift; sourceTree = "<group>"; };
+		A00000000000000000000217 /* 2027.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = 2027.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				A0000000000000000000020F /* 2026.json */,
+				A00000000000000000000217 /* 2027.json */,
 			);
 			path = Resources;
 			sourceTree = SOURCE_ROOT;
@@ -231,6 +234,7 @@
 			files = (
 				A00000000000000000000111 /* Assets.xcassets in Resources */,
 				A0000000000000000000010F /* 2026.json in Resources */,
+				A00000000000000000000115 /* 2027.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,7 +277,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = SupportingFiles/MenuBarCalendar.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -281,7 +285,7 @@
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = SupportingFiles/Info.plist;
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 0.0.8;
+				MARKETING_VERSION = 0.0.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.MenuBarCalendar;
 				PRODUCT_NAME = "今历";
 				SDKROOT = macosx;
@@ -298,7 +302,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = SupportingFiles/MenuBarCalendar.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -306,7 +310,7 @@
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = SupportingFiles/Info.plist;
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 0.0.8;
+				MARKETING_VERSION = 0.0.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.MenuBarCalendar;
 				PRODUCT_NAME = "今历";
 				SDKROOT = macosx;
